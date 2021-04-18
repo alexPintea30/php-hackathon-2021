@@ -2,6 +2,7 @@
 include "../connectDb/connect.php";
 class Booking {
     public $db;
+
     public function __construct()
     {
         $this->db = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
@@ -23,16 +24,33 @@ class Booking {
         //am implementat cele 3 cazuri in  care se suprapun 2 programari ca si timp de catre acelasi user
 
         $sql = "SELECT * FROM booking WHERE token='$token' and programme_id='$programme_id' 
-and 
-('$startDate' BETWEEN startDate AND endDate 
-or '$endDate' BETWEEN startDate AND endDate
-or startDate>'$startDate' AND endDate<'$endDate')";
+                and 
+               ('$startDate' BETWEEN startDate AND endDate 
+               or '$endDate' BETWEEN startDate AND endDate
+               or startDate>'$startDate' AND endDate<'$endDate')";
 
         $result = mysqli_query($this->db, $sql);
         $row=$result->fetch_object();
         //daca programarile se vor suprapune functia returneaza true
         if($row!=null) {
             return true;
+        }
+    }
+    public function deleteBooking($id){
+        $sql="DELETE FROM booking WHERE id='$id'";
+        $result= $this->db->prepare($sql);
+        $result->execute();
+        return true;
+    }
+    public function getBookingById($id){
+        $sql = "SELECT id FROM BOOKING WHERE id='$id'";
+        $result = mysqli_query($this->db, $sql);
+        $row = $result->fetch_object();
+        if($row!=null) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }

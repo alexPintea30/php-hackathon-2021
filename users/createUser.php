@@ -26,32 +26,17 @@ $type=$data["type"];
 $startDate=$data['startDate'];
 $endDate=$data['endDate'];
 
+
 //verificam daca cnp-ul este numar,daca are lungime specifica cnp-urile din Ro si daca este user normal
-//validari ierarhice
 if(is_numeric($cnp) && mb_strlen($cnp)==13 && $isAdmin==0) {
 
     if($user->existUser($cnp)){
         echo "Suntenti deja inregistrat in sistem";
     }
-    //daca nu exista userul se trece la urmatoarea validare
-    //daca mai sunt locuri pentru o programare si daca tipul respectiv exista la noi in sistem
+    //daca nu exista userul se poate insera
     else {
-        //se verifica daca tipul exista, daca da se verifica daca mai sunt locuri pentru tipul respectiv
-        if($programme->existType($type)){
-            if($programme->retriveProgrameAvailable($type)==true) {
-                //se aduce id programului in functie de tipul acestuia
-                $programme_id=$programme->getIdByType($type);
-                $user->insertNewUser($token,$cnp,$isAdmin,$programme_id);
-                $programme->updateMaximumUsers($type);
-                $booking->makeBooking($startDate,$endDate,$programme_id,$token);
-            }
-            else {
-                echo "Pentru tipul acesta de programare s-au ocupat toate locurile";
-            }
-        }
-        else {
-            echo "Acest tip nu exista in sistem";
-        }
+        $programme_id=$programme->getIdByType($type);
+        $user->insertNewUser($token,$cnp,$isAdmin,$programme_id);
     }
 }
 else {

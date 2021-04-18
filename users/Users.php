@@ -24,16 +24,23 @@ class User
         return $result;
     }
 
-    public function updateMaximumUsers($maximumUsers,$type){
-        $sql="UPDATE PROGRAMMES SET maximumUsers='$maximumUsers' WHERE type='$type'";
-        $result=mysqli_query($this->db,$sql);
-    }
     public function existUser($cnp){
         $sql="SELECT * FROM USERS WHERE CNP='$cnp'";
         $result=mysqli_query($this->db,$sql);
         $row=$result->fetch_object();
         if($row!=null) {
             return true;
+        }
+    }
+    public function isAdmin($token){
+        $sql="SELECT isAdmin FROM USERS WHERE token='$token'";
+        $result = mysqli_query($this->db, $sql);
+        $row = $result->fetch_object();
+        if($row->isAdmin==1){
+            return $row->isAdmin;
+        }
+        else {
+         echo "Nu aveti drepturi pentru a putea sterge o programare";
         }
     }
 
