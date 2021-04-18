@@ -65,7 +65,7 @@ Please fill in the following table with the technologies you used in order to wo
 | IDE |  PhpStorm 2.2|
 
 ### Testing
-If an administrator wants to delete a user then he must be validated as an administrator in the database.
+I chose the postman tool for testing the functionalities, more precisely I sent serialized data with json in php where I tested the validations through them
 I also chose the manual testing of the functionalities by displaying some messages or variables in certain functions
 ## Feedback
 In this section, please let us know what is your opinion about this experience and how we can improve it:
