@@ -12,19 +12,26 @@ $programme=new Programme();
 header("Content-Type: application/json");
 $data=json_decode(file_get_contents("php://input"), true);
 var_dump($data);
+
+
 //am folosit postman pt a trimite datele prin json
 //se preiau datele din array in variabile
-$startDate=$data["startDate"];
-$endDate=$data["endDate"];
-$programme_id=$data["programme_id"];
-$token=$data["token"];
-$cnp=$data['cnp'];
-$type=$data['type'];
+//am folosit try catch deoarece acestea sunt operatii sensibile
+
+    $startDate=$data["startDate"];
+    $endDate=$data["endDate"];
+    $programme_id=$data["programme_id"];
+    $token=$data["token"];
+    $cnp=$data['cnp'];
+    $type=$data['type'];
+
+
+
 //am harcodat aici userul normal
 $isAdmin=0;
 
-//daca este user normal si doreste sa isi creeze o rezervare
-if($isAdmin==0 && $user->existUser($cnp)) {
+//daca este user normal sau administratorul exista, isi pot crea rezervare
+if($user->existUser($cnp)) {
 
     //se verifica daca userul incearca sa faca 2 programari care se intercaleaze ca si timp, de acelasi tip
     if($booking->existInBooking($token,$startDate,$endDate,$programme_id)) {
@@ -55,5 +62,4 @@ if($isAdmin==0 && $user->existUser($cnp)) {
 else {
     echo "Nu sunteti inregistrat ca si user";
 }
-
 ?>

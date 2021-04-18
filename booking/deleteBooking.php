@@ -12,8 +12,10 @@ $data=json_decode(file_get_contents("php://input"), true);
 $id=$data['id'];
 $token=$data["token"];
 
+//se verifica daca userul este admin
 $isAdmin=$user->isAdmin($token);
 
+//se verfica daca exista programarea
 if($booking->getBookingById($id)){
   $booking->deleteBooking($id);
 }

@@ -15,23 +15,26 @@ include "../booking/Booking.php";
 $booking=new Booking();
 
 //se genereaza un token pt user
-$token=md5(microtime().mt_rand());
-$cnp=$data["cnp"];
+    $token=md5(microtime().mt_rand());
+    $cnp=$data["cnp"];
 
 //se inregistreaza user normal deoarece admini sunt harcodati deja in sistem
-$isAdmin=0;
+    $isAdmin=0;
 //tipul programarii
-$type=$data["type"];
+    $type=$data["type"];
 
-$startDate=$data['startDate'];
-$endDate=$data['endDate'];
+    $startDate=$data['startDate'];
+    $endDate=$data['endDate'];
+
+
 
 
 //verificam daca cnp-ul este numar,daca are lungime specifica cnp-urile din Ro si daca este user normal
 if(is_numeric($cnp) && mb_strlen($cnp)==13 && $isAdmin==0) {
 
+    //verifica daca userul exista deja in db
     if($user->existUser($cnp)){
-        echo "Suntenti deja inregistrat in sistem";
+        echo "Sunteti deja inregistrat in sistem";
     }
     //daca nu exista userul se poate insera
     else {

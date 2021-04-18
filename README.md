@@ -13,21 +13,44 @@ You have estimated it takes 4 weeks to build this solution. You have 2 days. Goo
 
 ## Technical documentation
 ### Data and Domain model
-In this section, please describe the main entities you managed to identify, the relationships between them and how you mapped them in the database.
+The entities which I have chosen for the database are: booking, program, rooms and users.
+The booking table maps the many-to-many relationship between programmes and users, 
+therefore in addition to the two foreign keys to the respective tables we also have as columns startDate and EndDate for a booking.
+The programmes table contains the type of program, the maximum number of users that can register with it,
+ and a foreign key to the room table. The relationship between programmes and rooms is many-to-one because many programmes can be assigned to one room.
+In the users table we have the following attributes: token and cnp for identification and isAdmin to check if a user is simple or administrator
+
 ### Application architecture
-In this section, please provide a brief overview of the design of your application and highlight the main components and the interaction between them.
+I chose to use object-oriented programming so for each entity in the database I created a class, 
+except for the rooms table where it was not needed because it does not require CRUD operations.
+In the constructors of these classes I made the connection with the database.
+I also created methods inside the classes
+which represent parts of the main functionalities of the application.
+In each file I created instances of these classes and used the methods for validations.
 ###  Implementation
 ##### Functionalities
 For each of the following functionalities, please tick the box if you implemented it and describe its input and output in your application:
 
 [x] Brew coffee \
-[ ] Create programme \
-[ ] Delete programme \
-[ ] Book a programme 
+[ x] Create programme \
+In the createBooking.php file I have realized this functionality which receives as input a json with the booking data and goes through certain validations until the booking is made.
+[ x] Delete programme \
+In the deleteBooking.php file I realized the functionality of deleting a booking by an administrator only, similar to the first functionality, previously described, I took the data from a json.
+[ x] Book a programme 
+I have incorporated this functionality in the one for creating booking, the administrator having the possibility to add a new programming as well.
+[x]CreateUsers
+Also, a simple user can register in the system if his data is validated.
 
 ##### Business rules
-Please highlight all the validations and mechanisms you identified as necessary in order to avoid inconsistent states and apply the business logic in your application.
+In general, the application is based on the validation of input data.
+ore precisely, for the functionality of creating a booking, you must first check if the user 
+is logged in to the system.
+Then it must be checked whether its booking does not overlap with other bookings or with other types of bookings.
+It must also be checked if there are still places available for the chosen type of booking.
+These validations comply with the user requirements.
 
+If we take as an example the registration of a new user then it will be validated according to the cnp in our database.
+If an administrator wants to delete a user then he must be validated as an administrator in the database.
 ##### 3rd party libraries (if applicable)
 Please give a brief review of the 3rd party libraries you used and how/ why you've integrated them into your project.
 
@@ -35,25 +58,34 @@ Please give a brief review of the 3rd party libraries you used and how/ why you'
 Please fill in the following table with the technologies you used in order to work at your application. Feel free to add more rows if you want us to know about anything else you used.
 | Name | Choice |
 | ------ | ------ |
-| Operating system (OS) | e.g. Ubuntu 20.04 |
-| Database  | e.g. MySQL 8.0|
-| Web server| e.g. Nginx |
-| PHP | e.g. 7.0 |
-| IDE | e.g. PhpStorm |
+| Operating system (OS) | Windows 10 Home |
+| Database  | MySQL|
+| Web server| Apache |
+| PHP |  7.4.7 |
+| IDE |  PhpStorm 2.2|
 
 ### Testing
-In this section, please list the steps and/ or tools you've used in order to test the behaviour of your solution.
-
+If an administrator wants to delete a user then he must be validated as an administrator in the database.
+I also chose the manual testing of the functionalities by displaying some messages or variables in certain functions
 ## Feedback
 In this section, please let us know what is your opinion about this experience and how we can improve it:
 
 1. Have you ever been involved in a similar experience? If so, how was this one different?
+No,is the first time
 2. Do you think this type of selection process is suitable for you?
+Yes
 3. What's your opinion about the complexity of the requirements?
+Intermediate for my level of knowledge
 4. What did you enjoy the most?
+The Meetings :))
 5. What was the most challenging part of this anti hackathon?
+Time
 6. Do you think the time limit was suitable for the requirements?
+A little bit
 7. Did you find the resources you were sent on your email useful?
+I did not receive resources by email
 8. Is there anything you would like to improve to your current implementation?
+Yes,a lot of things
 9. What would you change regarding this anti hackathon?
+More time
 

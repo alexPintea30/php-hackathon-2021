@@ -13,7 +13,6 @@ class Booking {
             echo "Conectarea cu db-ul este ok";
         }
     }
-
     public function makeBooking($startDate,$endDate,$programme_id,$token){
         $sql="INSERT INTO booking SET startDate='$startDate',endDate='$endDate',programme_id='$programme_id',token='$token'";
         $result = mysqli_query($this->db,$sql) or

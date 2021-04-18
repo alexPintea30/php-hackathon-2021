@@ -43,6 +43,5 @@ class User
          echo "Nu aveti drepturi pentru a putea sterge o programare";
         }
     }
-
 }
 ?>

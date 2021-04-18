@@ -44,28 +44,6 @@ class Programme
         }
     }
 
-    //verifica daca exista o camera anume pentru programare
-    public function existRoom($room)
-    {
-        $sql = "SELECT * FROM PROGRAMMES WHERE room_id='$room'";
-        $result = mysqli_query($this->db, $sql);
-        if ($result->num_rows > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function busyRoom($room_id, $newProgrammeStartDate)
-    {
-        $sql = "SELECT * FROM PROGRAMMES WHERE room_id='$room_id'";
-        $result = mysqli_query($this->db, $sql);
-        $row = $result->fetch_object();
-        if ($row->endDate < $newProgrammeStartDate) {
-            echo "mesaj";
-        }
-    }
-
     public function getIdByType($type)
     {
         $sql = "SELECT id FROM PROGRAMMES WHERE type='$type'";
