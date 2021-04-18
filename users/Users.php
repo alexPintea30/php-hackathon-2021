@@ -23,27 +23,19 @@ class User
         die(mysqli_connect_errno()."nu se poate insera angajatul");
         return $result;
     }
-    public function retriveProgrameAvailable(){
-        $sql='SELECT * FROM PROGRAMMES WHERE maximumUsers>0';
-        $result=mysqli_query($this->db,$sql);
 
-        //afiseaza fiecare programare disponibila: tipul ei, data si ora inceperii, daca nu returneaza false
-        if($result->num_rows>0) {
-            while ($row = $result->fetch_object()) {
-               echo "Mai sunt locuri disponibile pentru".$row->type;
-               echo $row->startDate;
-               echo $row->endDate;
-            }
-            return true;
-        }
-        else {
-            echo "Nu mai sunt locuri disponibile";
-            return false;
-        }
-    }
     public function updateMaximumUsers($maximumUsers,$type){
         $sql="UPDATE PROGRAMMES SET maximumUsers='$maximumUsers' WHERE type='$type'";
         $result=mysqli_query($this->db,$sql);
     }
+    public function existUser($cnp){
+        $sql="SELECT * FROM USERS WHERE CNP='$cnp'";
+        $result=mysqli_query($this->db,$sql);
+        $row=$result->fetch_object();
+        if($row!=null) {
+            return true;
+        }
+    }
+
 }
 ?>

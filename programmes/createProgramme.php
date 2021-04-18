@@ -17,6 +17,10 @@ if($programme->existType($data['type'])) {
     $type=$data['type'];
     if($programme->existRoom($data['room_id'])) {
         $room_id=$data['room_id'];
+        if($programme->busyRoom($room_id,$startDate)) {
+
+        }
+        //scade numarul de locuri la un tip de programare cand se ocupa un loc
         $programme->updateMaximumUsers($type);
     }
     else {
